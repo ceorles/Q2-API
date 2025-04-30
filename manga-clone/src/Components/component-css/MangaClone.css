@@ -1,0 +1,43 @@
+.maryAngelaRemojo {
+    justify-items: center;
+    transition: 0.3s ease-in-out;
+}
+
+.lelagela {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 90%;
+    transition: 0.3s ease-in-out;
+}
+  
+.mangaHolder {
+    width: 18%;
+    min-width: 150px;
+    max-width: 200px;
+    text-align: center;
+    box-sizing: border-box;
+}
+  
+.mangaImg img {
+    width: 100%;
+    height: auto;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #000000;
+}
+  
+@media (max-width: 768px) {
+    .mangaHolder {
+        width: 45%;
+    }
+}
+  
+@media (max-width: 425px) {
+    .mangaHolder {
+        width: 48%;
+    }
+}
+  

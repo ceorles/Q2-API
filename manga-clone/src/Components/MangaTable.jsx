@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-// import "./manga.css";
+import React, { useState, useEffect, useCallback } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
+import './component-css/MangaClone.css';
 
 function MangaTable() {
     const [mangas, setMangas] = useState([]);
@@ -11,23 +11,99 @@ function MangaTable() {
     const [totalPages, setTotalPages] = useState(1);
     const mangasPerPage = 10;
 
+    const fetchData = useCallback(() => {
+        if (page === 1 && search.trim() === '') {
+            const customMangas = [
+                {
+                    mal_id: 1001,
+                    title: "The guy she was interested in wasn't a guy at all",
+                    authors: [{ name: "Arai Sumiko" }],
+                    published: { from: "2022-01-01" },
+                    images: { jpg: { image_url: "theGuySheWasInterestedInWasn'tAGuyAtAll.jpg" } }
+                },
+                {
+                    mal_id: 1002,
+                    title: "I'm in Love with the Villainess",
+                    authors: [{ name: "Inori" }],
+                    published: { from: "2019-01-01" },
+                    images: { jpg: { image_url: "imInLoveWithTheVillainess.jpg" } }
+                },
+                {
+                    mal_id: 1003,
+                    title: "Whisper Me a Love Song",
+                    authors: [{ name: "Eku Takeshima" }],
+                    published: { from: "2019-01-01" },
+                    images: { jpg: { image_url: "whisperMeALoveSong.jpg" } }
+                },
+                {
+                    mal_id: 1004,
+                    title: "Bloom Into You",
+                    authors: [{ name: "Nakatani Nio" }],
+                    published: { from: "2015-01-01" },
+                    images: { jpg: { image_url: "bloomIntoYou.jpg" } }
+                },
+                {
+                    mal_id: 1005,
+                    title: "Omniscient Reader's Viewpoint",
+                    authors: [{ name: "Sing Shong" }],
+                    published: { from: "2018-01-01" },
+                    images: { jpg: { image_url: "ORV.jpg" } }
+                },
+                {
+                    mal_id: 1006,
+                    title: "There is No Love Wishing Upon a Star",
+                    authors: [{ name: "Unknown" }],
+                    published: { from: "2020-01-01" },
+                    images: { jpg: { image_url: "thereIsNoLoveWishingUponAStar.jpg" } }
+                },
+                {
+                    mal_id: 1007,
+                    title: "The Novel's Extra",
+                    authors: [{ name: "Jee Gab Song" }],
+                    published: { from: "2018-01-01" },
+                    images: { jpg: { image_url: "theNovelsExtra.png" } }
+                },
+                {
+                    mal_id: 1008,
+                    title: "I Built a Lifespan Club",
+                    authors: [{ name: "Unknown" }],
+                    published: { from: "2021-01-01" },
+                    images: { jpg: { image_url: "iBuiltALifespanClub.jpg" } }
+                },
+                {
+                    mal_id: 1009,
+                    title: "Tricked Into Becoming the Heroine's Stepmother",
+                    authors: [{ name: "Unknown" }],
+                    published: { from: "2022-01-01" },
+                    images: { jpg: { image_url: "trickedIntoBecomingTheHeroinesStepmother.jpg" } }
+                },
+                {
+                    mal_id: 1010,
+                    title: "Kaoru Hana wa Rin to Saku",
+                    authors: [{ name: "Shuu Morishita" }],
+                    published: { from: "2020-01-01" },
+                    images: { jpg: { image_url: "KaoruHanaWaRinToSaku.jpg" } }
+                }
+            ];
+            setMangas(customMangas);
+            setTotalPages(7577);
+        } else {
+            fetch(`https://api.jikan.moe/v4/manga?q=${search}&page=${page}&limit=${mangasPerPage}`)
+                .then(res => res.json())
+                .then(data => {
+                    setMangas(data.data || []);
+                    setTotalPages(data.pagination?.last_visible_page || 1);
+                })
+                .catch(() => setMangas([]));
+        }
+    }, [page, search]);
+
     useEffect(() => {
         const delayDebounce = setTimeout(() => {
             fetchData();
-        }, 500); // para may deley
-
+        }, 500);
         return () => clearTimeout(delayDebounce);
-    }, [search, page]);
-
-    const fetchData = () => {
-        fetch(`https://api.jikan.moe/v4/manga?q=${search}&page=${page}&limit=${mangasPerPage}`)
-            .then(res => res.json())
-            .then(data => {
-                setMangas(data.data || []);
-                setTotalPages(data.pagination?.last_visible_page || 1);
-            })
-            .catch(() => setMangas([]));
-    };
+    }, [fetchData]);
 
     const handleUpload = (e) => {
         const uploadedFile = e.target.files[0];
@@ -44,7 +120,7 @@ function MangaTable() {
     });
 
     return (
-        <div className='Main_holder'>
+        <div className='maryAngelaRemojo'>
             {/* Search and Upload Section */}
             <div className='search'>
                 <input
@@ -72,17 +148,16 @@ function MangaTable() {
             </div>
 
             {/* Manga Cards Section */}
-            <div className='holder'>
+            <div className='lelagela'>
                 {sortedMangas.length > 0 ? (
                     sortedMangas.map(manga => {
                         const coverUrl = manga.images?.jpg?.image_url || 'https://dummyimage.com/150x200/ccc/000.jpg&text=No+Image';
-
                         return (
-                            <div className='bookHolder' key={manga.mal_id}>
-                                <div className='bookImg'>
+                            <div className='mangaHolder' key={manga.mal_id}>
+                                <div className='mangaImg'>
                                     <img src={coverUrl} alt={manga.title || 'No Title'} />
                                 </div>
-                                <div className='bookTitle'>
+                                <div className='mangaTitle'>
                                     <h1>{manga.title || 'No Title'}</h1>
                                     <h2>{manga.authors?.[0]?.name || "No Author"}</h2>
                                     <h2>{manga.published?.from?.slice(0, 4) || "N/A"}</h2>
@@ -96,7 +171,7 @@ function MangaTable() {
             </div>
 
             {/* Pagination Section */}
-            <div className='pagination'>
+            <div className='gelalela'>
                 <div>
                     <button onClick={() => setPage(p => Math.max(p - 1, 1))} disabled={page === 1}>
                         Previous
