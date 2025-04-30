@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FiUploadCloud } from 'react-icons/fi';
 import './component-css/MangaClone.css';
 import { useLibrary } from '../Components/Library';
 
@@ -124,36 +123,37 @@ function MangaTable() {
     return (
         <div className='maryAngelaRemojo'>
             {/* Search and Upload Section */}
-            <div className='search'>
-            <input
-                type="text"
-                placeholder="Search..."
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                className="searchInput"
-            />
-            <button onClick={() => {
-                setPage(1);
-                setSearchTerm(search); // trigger search officially
-            }}>
-                Search
-            </button>
+            <div className='header'>
+                <div className='search'>
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                        className="searchInput"
+                    />
+                    <button onClick={() => {
+                        setPage(1);
+                        setSearchTerm(search); // trigger search officially
+                    }}>
+                        Search
+                    </button>
 
 
-                <div className="upload_holder">
-                    <label className="upload_label">
-                        <FiUploadCloud size={30} />
-                        Upload Image
-                        <input type="file" onChange={handleUpload} hidden />
-                    </label>
-                    {file && <p className="uploaded-file">Uploaded: {file.name}</p>}
+                    <div className="upload_holder">
+                        <label className="upload_label">
+                            Upload Image
+                            <input type="file" onChange={handleUpload} hidden />
+                        </label>
+                        {file && <p className="uploaded-file">Uploaded: {file.name}</p>}
+                    </div>
                 </div>
             </div>
 
             {/* Library Toggle Button */}
             {!showLibrary && (
                 <div className="sidebar-toggle">
-                    <button onClick={() => setShowLibrary(true)}>📚 Open Library</button>
+                    <button onClick={() => setShowLibrary(true)}><img src="stack-of-books.png" alt="LIBRARY" />Library</button>
                 </div>
             )}
 
@@ -162,17 +162,17 @@ function MangaTable() {
                 <div className="librarySidebar">
                     <div className="libraryHeader">
                         <h2>Your Library</h2>
-                        <button onClick={() => setShowLibrary(false)}>❌ Close</button>
+                        <button onClick={() => setShowLibrary(false)}><img src="close.png" alt="CLOSE" /></button>
                     </div>
                     {/* You'll need to access your library data here */}
                     {/* Example: If you have useLibrary, add `const { library } = useLibrary();` at the top */}
                     {library.length === 0 ? (
                         <p>No manga in your library.</p>
                     ) : (
-                        <div className='lelagela'>
+                        <div className='lelagela1st'>
                             {library.map(manga => (
-                                <div className='mangaHolder' key={manga.mal_id}>
-                                    <div className='mangaImg'>
+                                <div className='mangaHolder1st' key={manga.mal_id}>
+                                    <div className='mangaImg1st'>
                                         <img
                                             src={manga.images?.jpg?.image_url || 'https://dummyimage.com/150x200/ccc/000.jpg&text=No+Image'}
                                             alt={manga.title}
@@ -182,7 +182,7 @@ function MangaTable() {
                                         <h1>{manga.title}</h1>
                                         <h2>{manga.authors?.[0]?.name || "No Author"}</h2>
                                         <h3>{manga.published?.from?.slice(0, 4) || "N/A"}</h3>
-                                        <button onClick={() => removeFromLibrary(manga.mal_id)}>❌ Remove</button>
+                                        <button onClick={() => removeFromLibrary(manga.mal_id)}><img src="trash-can.png" alt="REMOVE" /></button>
                                     </div>
                                 </div>
                             ))}
@@ -205,7 +205,7 @@ function MangaTable() {
                                     <h1>{manga.title || 'No Title'}</h1>
                                     <h2>{manga.authors?.[0]?.name || "No Author"}</h2>
                                     <h3>{manga.published?.from?.slice(0, 4) || "N/A"}</h3>
-                                    <button onClick={() => addToLibrary(manga)}>+ Add to Library</button>
+                                    <button className="addButton" onClick={() => addToLibrary(manga)}>+ Add to Library</button>
                                 </div>
                             </div>
                         );

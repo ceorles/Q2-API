@@ -1,4 +1,3 @@
-// src/Components/Library.jsx
 import React from 'react';
 import { useLibrary } from '../Components/Library';
 import './component-css/MangaClone.css';
@@ -6,9 +5,9 @@ import './component-css/MangaClone.css';
 function Library() {
     const { library } = useLibrary();
 
-    return (
-        <div className='maryAngelaRemojo'>
-            <h2>📚 Your Library</h2>
+ return (
+       <div className='maryAngelaRemojo'>
+            <h2>📚Library</h2>
             {library.length === 0 ? (
                 <p>No manga in your library.</p>
             ) : (
