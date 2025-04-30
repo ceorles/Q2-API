@@ -3,6 +3,7 @@
     transition: 0.3s ease-in-out;
 }
 
+/*  */
 .lelagela {
     display: flex;
     flex-wrap: wrap;
@@ -10,34 +11,57 @@
     gap: 20px;
     width: 90%;
     transition: 0.3s ease-in-out;
+    /* border: 1px solid #000000; */
 }
   
 .mangaHolder {
     width: 18%;
-    min-width: 150px;
-    max-width: 200px;
+    min-width: 180px;
+    max-width: 300px;
     text-align: center;
     box-sizing: border-box;
+    /* border: 1px solid #000000; */
 }
   
 .mangaImg img {
     width: 100%;
     height: auto;
-    max-height: 420px;
+    max-height: 400px;
     object-fit: cover;
     border-radius: 5px;
-    border: 1px solid #000000;
+    border: 1px solid #ff0707;
 }
-  
-@media (max-width: 768px) {
-    .mangaHolder {
-        width: 45%;
-    }
+
+.mangaTitle h1 {
+    font-size: 25px;
+    margin: 0;
 }
-  
-@media (max-width: 425px) {
-    .mangaHolder {
-        width: 48%;
-    }
+
+.mangaTitle h2 {
+    font-size: 15px;
+    margin: 0;
 }
-  
+
+.mangaTitle h3 {
+    font-size: 12px;
+    margin: 0;
+}
+/*  */
+.gustoKoSiGelaLang {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    /* border: 1px solid #000000; */
+  }
+
+.gelalela button {
+    height: 30px;
+    border: 0;
+    padding: 0;
+}
+
+.gelalela img {
+    width: 30px;
+    height: 30px;
+}

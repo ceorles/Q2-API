@@ -6,13 +6,14 @@ function MangaTable() {
     const [mangas, setMangas] = useState([]);
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
-    const [order, setOrder] = useState('asc');
+    // const [order, setOrder] = useState('asc');
     const [file, setFile] = useState(null);
     const [totalPages, setTotalPages] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
     const mangasPerPage = 10;
 
     const fetchData = useCallback(() => {
-        if (page === 1 && search.trim() === '') {
+        if (page === 1 && searchTerm.trim() === '') {
             const customMangas = [
                 {
                     mal_id: 1001,
@@ -88,7 +89,7 @@ function MangaTable() {
             setMangas(customMangas);
             setTotalPages(7577);
         } else {
-            fetch(`https://api.jikan.moe/v4/manga?q=${search}&page=${page}&limit=${mangasPerPage}`)
+            fetch(`https://api.jikan.moe/v4/manga?q=${searchTerm}&page=${page}&limit=${mangasPerPage}`)
                 .then(res => res.json())
                 .then(data => {
                     setMangas(data.data || []);
@@ -96,13 +97,10 @@ function MangaTable() {
                 })
                 .catch(() => setMangas([]));
         }
-    }, [page, search]);
+    }, [page, searchTerm]);
 
     useEffect(() => {
-        const delayDebounce = setTimeout(() => {
-            fetchData();
-        }, 500);
-        return () => clearTimeout(delayDebounce);
+        fetchData();
     }, [fetchData]);
 
     const handleUpload = (e) => {
@@ -113,29 +111,30 @@ function MangaTable() {
         }
     };
 
-    const sortedMangas = [...mangas].sort((a, b) => {
-        const aTitle = (a.title || '').toLowerCase();
-        const bTitle = (b.title || '').toLowerCase();
-        return order === 'asc' ? aTitle.localeCompare(bTitle) : bTitle.localeCompare(aTitle);
-    });
+    // const sortedMangas = [...mangas].sort((a, b) => {
+    //     const aTitle = (a.title || '').toLowerCase();
+    //     const bTitle = (b.title || '').toLowerCase();
+    //     return order === 'asc' ? aTitle.localeCompare(bTitle) : bTitle.localeCompare(aTitle);
+    // });
 
     return (
         <div className='maryAngelaRemojo'>
             {/* Search and Upload Section */}
             <div className='search'>
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={search}
-                    onChange={e => {
-                        setSearch(e.target.value);
-                        setPage(1);
-                    }}
-                    className="searchInput"
-                />
-                <button onClick={() => setOrder(order === 'asc' ? 'desc' : 'asc')}>
-                    Toggle Order ({order})
-                </button>
+            <input
+                type="text"
+                placeholder="Search..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                className="searchInput"
+            />
+            <button onClick={() => {
+                setPage(1);
+                setSearchTerm(search); // trigger search officially
+            }}>
+                Search
+            </button>
+
 
                 <div className="upload_holder">
                     <label className="upload_label">
@@ -149,8 +148,8 @@ function MangaTable() {
 
             {/* Manga Cards Section */}
             <div className='lelagela'>
-                {sortedMangas.length > 0 ? (
-                    sortedMangas.map(manga => {
+                {mangas.length > 0 ? (
+                    mangas.map(manga => {
                         const coverUrl = manga.images?.jpg?.image_url || 'https://dummyimage.com/150x200/ccc/000.jpg&text=No+Image';
                         return (
                             <div className='mangaHolder' key={manga.mal_id}>
@@ -160,7 +159,7 @@ function MangaTable() {
                                 <div className='mangaTitle'>
                                     <h1>{manga.title || 'No Title'}</h1>
                                     <h2>{manga.authors?.[0]?.name || "No Author"}</h2>
-                                    <h2>{manga.published?.from?.slice(0, 4) || "N/A"}</h2>
+                                    <h3>{manga.published?.from?.slice(0, 4) || "N/A"}</h3>
                                 </div>
                             </div>
                         );
@@ -172,16 +171,16 @@ function MangaTable() {
 
             {/* Pagination Section */}
             <div className='gelalela'>
-                <div>
+                <div className='gustoKoSiGelaLang'>
                     <button onClick={() => setPage(p => Math.max(p - 1, 1))} disabled={page === 1}>
-                        Previous
+                        <img src="back.png" alt="PREVIOUS" />
                     </button>
-                    <span> Page {page} of {totalPages} </span>
+                    <span> Page {page}/{totalPages} </span>
                     <button
                         onClick={() => setPage(p => Math.min(p + 1, totalPages))}
                         disabled={page === totalPages}
                     >
-                        Next
+                        <img src="next.png" alt="NEXT" />
                     </button>
                 </div>
             </div>

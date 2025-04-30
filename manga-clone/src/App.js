@@ -1,5 +1,5 @@
 import './App.css';
-import MangaList from './Components/MangaList';
+// import MangaList from './Components/TryingHard';
 import MangaTable from './Components/MangaTable';
 
 function MAR() {
