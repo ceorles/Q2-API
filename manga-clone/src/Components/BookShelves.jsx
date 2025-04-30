@@ -1,0 +1,37 @@
+// src/Components/Library.jsx
+import React from 'react';
+import { useLibrary } from '../Components/Library';
+import './component-css/MangaClone.css';
+
+function Library() {
+    const { library } = useLibrary();
+
+    return (
+        <div className='maryAngelaRemojo'>
+            <h2>📚 Your Library</h2>
+            {library.length === 0 ? (
+                <p>No manga in your library.</p>
+            ) : (
+                <div className='lelagela'>
+                    {library.map(manga => (
+                        <div className='mangaHolder' key={manga.mal_id}>
+                            <div className='mangaImg'>
+                                <img
+                                    src={manga.images?.jpg?.image_url || 'https://dummyimage.com/150x200/ccc/000.jpg&text=No+Image'}
+                                    alt={manga.title}
+                                />
+                            </div>
+                            <div className='mangaTitle'>
+                                <h1>{manga.title}</h1>
+                                <h2>{manga.authors?.[0]?.name || "No Author"}</h2>
+                                <h3>{manga.published?.from?.slice(0, 4) || "N/A"}</h3>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
+export default Library;

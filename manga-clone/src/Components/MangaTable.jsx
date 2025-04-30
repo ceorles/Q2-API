@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 import './component-css/MangaClone.css';
+import { useLibrary } from '../Components/Library';
 
 function MangaTable() {
     const [mangas, setMangas] = useState([]);
@@ -10,6 +11,9 @@ function MangaTable() {
     const [file, setFile] = useState(null);
     const [totalPages, setTotalPages] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
+    const { library, addToLibrary } = useLibrary();
+    const [showLibrary, setShowLibrary] = useState(false);
+
     const mangasPerPage = 10;
 
     const fetchData = useCallback(() => {
@@ -19,71 +23,71 @@ function MangaTable() {
                     mal_id: 1001,
                     title: "The guy she was interested in wasn't a guy at all",
                     authors: [{ name: "Arai Sumiko" }],
-                    published: { from: "2022-01-01" },
+                    published: { from: "2022" },
                     images: { jpg: { image_url: "theGuySheWasInterestedInWasn'tAGuyAtAll.jpg" } }
                 },
                 {
                     mal_id: 1002,
                     title: "I'm in Love with the Villainess",
                     authors: [{ name: "Inori" }],
-                    published: { from: "2019-01-01" },
+                    published: { from: "2019" },
                     images: { jpg: { image_url: "imInLoveWithTheVillainess.jpg" } }
                 },
                 {
                     mal_id: 1003,
                     title: "Whisper Me a Love Song",
                     authors: [{ name: "Eku Takeshima" }],
-                    published: { from: "2019-01-01" },
+                    published: { from: "2019" },
                     images: { jpg: { image_url: "whisperMeALoveSong.jpg" } }
                 },
                 {
                     mal_id: 1004,
                     title: "Bloom Into You",
                     authors: [{ name: "Nakatani Nio" }],
-                    published: { from: "2015-01-01" },
+                    published: { from: "2015" },
                     images: { jpg: { image_url: "bloomIntoYou.jpg" } }
                 },
                 {
                     mal_id: 1005,
-                    title: "Omniscient Reader's Viewpoint",
-                    authors: [{ name: "Sing Shong" }],
-                    published: { from: "2018-01-01" },
-                    images: { jpg: { image_url: "ORV.jpg" } }
+                    title: "Tokyo Aliens",
+                    authors: [{ name: "Naoe" }],
+                    published: { from: "2020" },
+                    images: { jpg: { image_url: "tokyoAliens.jpg" } }
                 },
                 {
                     mal_id: 1006,
-                    title: "There is No Love Wishing Upon a Star",
-                    authors: [{ name: "Unknown" }],
-                    published: { from: "2020-01-01" },
-                    images: { jpg: { image_url: "thereIsNoLoveWishingUponAStar.jpg" } }
+                    title: "The Villainess Flips the Script!",
+                    authors: [{ name: "KEN" }],
+                    published: { from: "2024" },
+                    images: { jpg: { image_url: "theVillainessFlipTheScript.jpg" } }
                 },
                 {
                     mal_id: 1007,
-                    title: "The Novel's Extra",
-                    authors: [{ name: "Jee Gab Song" }],
-                    published: { from: "2018-01-01" },
-                    images: { jpg: { image_url: "theNovelsExtra.png" } }
+                    title: "Vampire x Junior",
+                    authors: [{ name: "Takano Saku" }],
+                    published: { from: "2019" },
+                    images: { jpg: { image_url: "VampirexJunior.jpg" } }
                 },
                 {
                     mal_id: 1008,
-                    title: "I Built a Lifespan Club",
-                    authors: [{ name: "Unknown" }],
-                    published: { from: "2021-01-01" },
-                    images: { jpg: { image_url: "iBuiltALifespanClub.jpg" } }
+                    title: "I Want to Love You Till Your Dying Day",
+                    authors: [{ name: "Aono Nachi" }],
+                    published: { from: "2025" },
+                    images: { jpg: { image_url: "iWantToLoveYouTillYourDyingDay.jpg" } }
                 },
                 {
                     mal_id: 1009,
                     title: "Tricked Into Becoming the Heroine's Stepmother",
                     authors: [{ name: "Unknown" }],
-                    published: { from: "2022-01-01" },
+                    published: { from: "2022" },
                     images: { jpg: { image_url: "trickedIntoBecomingTheHeroinesStepmother.jpg" } }
                 },
                 {
                     mal_id: 1010,
-                    title: "Kaoru Hana wa Rin to Saku",
-                    authors: [{ name: "Shuu Morishita" }],
-                    published: { from: "2020-01-01" },
-                    images: { jpg: { image_url: "KaoruHanaWaRinToSaku.jpg" } }
+                    title: "The Summer You Were There",
+                    authors: [{ name: "Yuama" }],
+                    published: { from: "2021" },
+                    images: { jpg: { image_url: "theSummerYouWereThere.jpg" } }
                 }
             ];
             setMangas(customMangas);
@@ -146,6 +150,46 @@ function MangaTable() {
                 </div>
             </div>
 
+            {/* Library Toggle Button */}
+            {!showLibrary && (
+                <div className="sidebar-toggle">
+                    <button onClick={() => setShowLibrary(true)}>📚 Open Library</button>
+                </div>
+            )}
+
+            {/* Library Sidebar */}
+            {showLibrary && (
+                <div className="librarySidebar">
+                    <div className="libraryHeader">
+                        <h2>Your Library</h2>
+                        <button onClick={() => setShowLibrary(false)}>❌ Close</button>
+                    </div>
+                    {/* You'll need to access your library data here */}
+                    {/* Example: If you have useLibrary, add `const { library } = useLibrary();` at the top */}
+                    {library.length === 0 ? (
+                        <p>No manga in your library.</p>
+                    ) : (
+                        <div className='lelagela'>
+                            {library.map(manga => (
+                                <div className='mangaHolder' key={manga.mal_id}>
+                                    <div className='mangaImg'>
+                                        <img
+                                            src={manga.images?.jpg?.image_url || 'https://dummyimage.com/150x200/ccc/000.jpg&text=No+Image'}
+                                            alt={manga.title}
+                                        />
+                                    </div>
+                                    <div className='mangaTitle'>
+                                        <h1>{manga.title}</h1>
+                                        <h2>{manga.authors?.[0]?.name || "No Author"}</h2>
+                                        <h3>{manga.published?.from?.slice(0, 4) || "N/A"}</h3>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+
             {/* Manga Cards Section */}
             <div className='lelagela'>
                 {mangas.length > 0 ? (
@@ -160,6 +204,7 @@ function MangaTable() {
                                     <h1>{manga.title || 'No Title'}</h1>
                                     <h2>{manga.authors?.[0]?.name || "No Author"}</h2>
                                     <h3>{manga.published?.from?.slice(0, 4) || "N/A"}</h3>
+                                    <button onClick={() => addToLibrary(manga)}>+ Add to Library</button>
                                 </div>
                             </div>
                         );
