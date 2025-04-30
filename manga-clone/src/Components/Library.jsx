@@ -1,22 +1,25 @@
-import React, { createContext, useContext, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const LibraryContext = createContext();
+export function useLibrary() {
+    const [library, setLibrary] = useState(() => {
+        const stored = localStorage.getItem('mangaLibrary');
+        return stored ? JSON.parse(stored) : [];
+    });
 
-export const useLibrary = () => useContext(LibraryContext);
-
-export const LibraryProvider = ({ children }) => {
-    const [library, setLibrary] = useState([]);
+    useEffect(() => {
+        localStorage.setItem('mangaLibrary', JSON.stringify(library));
+    }, [library]);
 
     const addToLibrary = (manga) => {
-        setLibrary((prev) => {
-            const alreadyExists = prev.some(item => item.mal_id === manga.mal_id);
-            return alreadyExists ? prev : [...prev, manga];
-        });
+        if (!library.some(item => item.mal_id === manga.mal_id)) {
+            setLibrary(prev => [...prev, manga]);
+        }
     };
 
-    return (
-        <LibraryContext.Provider value={{ library, addToLibrary }}>
-            {children}
-        </LibraryContext.Provider>
-    );
-};
+    const removeFromLibrary = (mal_id) => {
+        setLibrary(prev => prev.filter(manga => manga.mal_id !== mal_id));
+    };
+    
+
+    return { library, addToLibrary, removeFromLibrary };
+}

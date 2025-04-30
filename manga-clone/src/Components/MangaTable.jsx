@@ -11,7 +11,7 @@ function MangaTable() {
     const [file, setFile] = useState(null);
     const [totalPages, setTotalPages] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
-    const { library, addToLibrary } = useLibrary();
+    const { library, addToLibrary, removeFromLibrary } = useLibrary();
     const [showLibrary, setShowLibrary] = useState(false);
 
     const mangasPerPage = 10;
@@ -178,10 +178,11 @@ function MangaTable() {
                                             alt={manga.title}
                                         />
                                     </div>
-                                    <div className='mangaTitle'>
+                                    <div className='mangaTitle1st'>
                                         <h1>{manga.title}</h1>
                                         <h2>{manga.authors?.[0]?.name || "No Author"}</h2>
                                         <h3>{manga.published?.from?.slice(0, 4) || "N/A"}</h3>
+                                        <button onClick={() => removeFromLibrary(manga.mal_id)}>❌ Remove</button>
                                     </div>
                                 </div>
                             ))}
