@@ -122,7 +122,6 @@ function MangaTable() {
 
     return (
         <div className='maryAngelaRemojo'>
-            {/* Search and Upload Section */}
             <div className='header'>
                 <div className='search'>
                     <input
@@ -134,7 +133,7 @@ function MangaTable() {
                     />
                     <button onClick={() => {
                         setPage(1);
-                        setSearchTerm(search); // trigger search officially
+                        setSearchTerm(search);
                     }}>
                         Search
                     </button>
@@ -150,7 +149,6 @@ function MangaTable() {
                 </div>
             </div>
 
-            {/* Library Toggle Button */}
             {!showLibrary && (
                 <div className="sidebar-toggle">
                     <button onClick={() => setShowLibrary(true)}><img src="stack-of-books.png" alt="LIBRARY" />Library</button>
@@ -164,8 +162,7 @@ function MangaTable() {
                         <h2>Your Library</h2>
                         <button onClick={() => setShowLibrary(false)}><img src="close.png" alt="CLOSE" /></button>
                     </div>
-                    {/* You'll need to access your library data here */}
-                    {/* Example: If you have useLibrary, add `const { library } = useLibrary();` at the top */}
+
                     {library.length === 0 ? (
                         <p>No manga in your library.</p>
                     ) : (
@@ -182,7 +179,11 @@ function MangaTable() {
                                         <h1>{manga.title}</h1>
                                         <h2>{manga.authors?.[0]?.name || "No Author"}</h2>
                                         <h3>{manga.published?.from?.slice(0, 4) || "N/A"}</h3>
-                                        <button onClick={() => removeFromLibrary(manga.mal_id)}><img src="trash-can.png" alt="REMOVE" /></button>
+                                    </div>
+                                    <div className='removeButtonContainer'>
+                                        <button onClick={() => removeFromLibrary(manga.mal_id)} className="removeButton">
+                                            <img src="trash-can.png" alt="REMOVE" />
+                                        </button>
                                     </div>
                                 </div>
                             ))}
@@ -191,7 +192,6 @@ function MangaTable() {
                 </div>
             )}
 
-            {/* Manga Cards Section */}
             <div className='lelagela'>
                 {mangas.length > 0 ? (
                     mangas.map(manga => {
@@ -215,7 +215,6 @@ function MangaTable() {
                 )}
             </div>
 
-            {/* Pagination Section */}
             <div className='gelalela'>
                 <div className='gustoKoSiGelaLang'>
                     <button onClick={() => setPage(p => Math.max(p - 1, 1))} disabled={page === 1}>
