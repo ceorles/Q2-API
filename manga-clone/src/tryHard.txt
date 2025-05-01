@@ -1,0 +1,50 @@
+import { useEffect, useState } from 'react';
+
+function MangaList() {
+    const [mangaList, setMangaList] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null); 
+
+    useEffect(() => {
+        fetch("/api/manga")
+            .then((res) => {
+                if (!res.ok) {
+                  throw new Error("Failed to fetch manga");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setMangaList(data.data || []);
+                setLoading(false);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setLoading(false);
+            });
+        }, []);
+
+        if (loading) {
+            return <div>Loading...</div>;
+        }
+
+        if (error) {
+            return <div>Error: {error}</div>;
+        }
+
+        return (
+            <div>
+              <h1>Manga List</h1>
+              <ul>
+                {mangaList.length > 0 ? (
+                  mangaList.map((manga) => (
+                    <li key={manga.id}>{manga.attributes?.title?.en || "Untitled"}</li>
+                  ))
+                ) : (
+                  <li>No manga found.</li>
+                )}
+              </ul>
+            </div>
+        );
+}
+
+export default MangaList;

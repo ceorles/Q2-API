@@ -157,7 +157,7 @@ function MangaTable() {
 
             {/* Library Sidebar */}
             {showLibrary && (
-                <div className="librarySidebar">
+                <div className={`librarySidebar ${showLibrary ? 'open' : 'closed'}`}>
                     <div className="libraryHeader">
                         <h2>Your Library</h2>
                         <button onClick={() => setShowLibrary(false)}><img src="close.png" alt="CLOSE" /></button>
