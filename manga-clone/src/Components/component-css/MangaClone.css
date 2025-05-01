@@ -1,10 +1,12 @@
 .maryAngelaRemojo {
     justify-items: center;
     transition: 0.3s ease-in-out;
+    padding: 70px 0;
 }
 
 .header .search{
     display: flex;
+    margin-bottom: 20px;
 }
 
 /*  */
@@ -41,6 +43,7 @@
     max-width: 300px;
     text-align: center;
     box-sizing: border-box;
+    cursor: context-menu;
     /* border: 1px solid #000000; */
 }
 
@@ -50,6 +53,7 @@
     max-width: 300px;
     text-align: center;
     box-sizing: border-box;
+    cursor: context-menu;
     /* border: 1px solid #000000; */
 }
   
@@ -156,6 +160,16 @@
 }
 
 /*  */
+
+.gelalela {
+    /* border: 1px solid #333; */
+    margin-top: 15px;
+}
+
+.gelalela span {
+    cursor: context-menu;
+}
+
 .gustoKoSiGelaLang {
     display: flex;
     align-items: center;
@@ -173,13 +187,14 @@
 .gelalela img {
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
 /*  */
 body {
     background-image: radial-gradient(circle, #ffe6f0 1px, transparent 1px);
     background-size: 20px 20px;
-    background-color: #ffe6f0; /* light pink */
+    background-color: #ffe6f0;
     color: #333;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -253,6 +268,10 @@ body {
     margin-right: 10px;
 }
 
+.searchInput:hover {
+    border: 2px solid #ff69b4;
+}
+
 .search button {
     background-color: #ff69b4;
     color: white;
@@ -268,14 +287,12 @@ body {
     background-color: #ff1493;
 }
 
-/* Pagination hover */
 .gelalela button:hover img {
     filter: brightness(1.2);
     transform: scale(1.1);
     transition: all 0.2s ease;
 }
 
-/* Library toggle button styling */
 .sidebar-toggle button {
     background-color: #ff69b4;
     color: white;
@@ -291,23 +308,19 @@ body {
     background-color: #ff1493;
 }
 
-/* Library sidebar background */
 .librarySidebar {
     background-color: #fff5f8;
 }
 
-/* Uploaded file text */
 .uploaded-file {
     font-size: 12px;
     margin-top: 5px;
     color: #d63384;
 }
 
-/* Close button in library */
 .libraryHeader button:hover img {
     filter: drop-shadow(0 0 5px #ff69b4);
 }
-
 
 .mangaImg1st {
     position: relative;

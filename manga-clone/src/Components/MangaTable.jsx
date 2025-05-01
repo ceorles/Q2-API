@@ -126,7 +126,7 @@ function MangaTable() {
                 <div className='search'>
                     <input
                         type="text"
-                        placeholder="Search..."
+                        placeholder="Search"
                         value={search}
                         onChange={e => setSearch(e.target.value)}
                         className="searchInput"
