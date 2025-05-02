@@ -6,14 +6,12 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Wrapper */
 .maryAngelaRemojo {
     justify-items: center;
     transition: 0.3s ease-in-out;
     padding: 70px 0;
 }
 
-/* Header */
 .header .search {
     display: flex;
     margin-bottom: 20px;
@@ -46,7 +44,6 @@ body {
     background-color: #ff1493;
 }
 
-/* Upload */
 .upload_holder {
     background-color: #ffe4ec;
     padding: 10px;
@@ -151,7 +148,6 @@ body {
     margin: 0;
 }
 
-/* Add/Remove Buttons */
 .addButton, .removeButton {
     background-color: #ffb6c1;
     border: none;
@@ -211,7 +207,6 @@ body {
     transform: scale(1.1);
 }
 
-/* Sidebar */
 .sidebar-toggle {
     position: fixed;
     top: 20px;
