@@ -155,7 +155,6 @@ function MangaTable() {
                 </div>
             )}
 
-            {/* Library Sidebar */}
             {showLibrary && (
                 <div className={`librarySidebar ${showLibrary ? 'open' : 'closed'}`}>
                     <div className="libraryHeader">
